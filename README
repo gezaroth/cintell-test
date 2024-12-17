@@ -1,0 +1,81 @@
+# Simulación de Mercado con Agentes
+Este proyecto simula un mercado donde varios agentes interactúan comprando y vendiendo un recurso (cartas) con estrategias diversas. El objetivo es analizar cómo diferentes estrategias de los agentes afectan al precio del mercado, los inventarios de los agentes y sus balances finales.
+
+## Características
+
+- **Mercado dinámico**: El precio de las cartas fluctúa según las acciones de compra y venta de los agentes.
+- **Diversidad de agentes**: Hay cuatro tipos de agentes que usan diferentes estrategias para actuar en el mercado:
+  - `RandomAgent`: Actúa de manera aleatoria.
+  - `TrendFollowingAgent`: Sigue tendencias, comprando cuando el precio sube y vendiendo en mercados bajistas.
+  - `AntiTrendAgent`: Va en contra de la tendencia, comprando cuando el precio baja y vendiendo cuando el precio sube.
+  - `CustomAgent`: Un agente personalizado con una estrategia mixta que depende del tiempo restante en la simulación.
+- **Simulación personalizable**: Puedes ajustar el número de iteraciones, la cantidad de agentes, y sus comportamientos agregando más subclases.
+
+### Instalación & Prerrequisitos
+Este proyecto está escrito en Python. Asegúrate de tener instalada una versión de Python 3.7 o superior. Se recomienda utilizar un entorno virtual para manejar las dependencias del proyecto.
+
+### Crear un entorno virtual (opcional)
+    python3 -m venv venv
+
+### Instalación de dependencias
+El proyecto no requiere dependencias externas adicionales. No obstante, se recomienda tener pyenv para manejar diferentes versiones de Python.
+
+### Uso
+Clona el repositorio o descarga los archivos a tu máquina local.
+Para ejecutar la simulación, usa el siguiente comando en la terminal (ajustando la ruta según la ubicación de tu archivo):
+
+python main.py
+
+### Después de ejecutar el script:
+Verás los resultados en la terminal, mostrando el balance y el inventario de cada agente, así como el precio final del mercado y el stock restante de cartas.
+
+Ejemplo de salida
+    Agent 0: Balance=$34.91, Inventory=4 cards
+    Agent 1: Balance=$944.21, Inventory=2 cards
+    ...
+    Market price: $407.48
+    Total agent balance: $58504.64
+    Total agent inventory: 231 cards
+    Market stock: 99769 cards
+
+
+### Estructura del Código
+Clases Principales
+  -  Market: Simula el mercado donde los agentes compran y venden cartas. El precio varía según las transacciones.
+  - Agent (abstracta): Clase base para los diferentes tipos de agentes. Cada agente tiene un balance y un inventario de cartas.
+  - RandomAgent: Toma decisiones de compra/venta de forma aleatoria.
+  - TrendFollowingAgent: Sigue las tendencias del mercado, comprando cuando el precio sube y vendiendo cuando baja.
+  - AntiTrendAgent: Actúa de manera opuesta a las tendencias del mercado.
+  - CustomAgent: Un agente personalizado que adapta su comportamiento según el número de iteraciones restantes.
+  - Simulation: Se encarga de correr la simulación, ejecutando las acciones de los agentes en cada iteración y actualizando el estado del mercado.
+
+### Cómo se determina el precio del mercado
+El precio inicial de las cartas en el mercado es $200 y varía según las siguientes reglas:
+
+Cuando un agente compra una carta, el precio sube un 0.5%.
+Cuando un agente vende una carta, el precio baja un 0.5%.
+
+### Personalización
+Ajustar el número de iteraciones
+Puedes cambiar el número de iteraciones de la simulación ajustando el parámetro self.iterations en la clase Simulation. 
+El valor por defecto es 1,000.
+    self.iterations = 1000  # Cambiar este valor si se quiere un número diferente de iteraciones
+
+
+### Añadir nuevos agentes
+Puedes crear nuevas estrategias de agentes creando subclases de la clase Agent y definiendo el método act() según la lógica deseada.
+
+class NewStrategyAgent(Agent):
+    def act(self, market):
+        # Implementa una nueva estrategia aquí
+        pass
+
+Luego, agrega instancias de tu nuevo agente en la lista de agentes de la clase Simulation:
+
+def create_agents(self):
+    agents = [RandomAgent() for _ in range(51)]
+    agents += [TrendFollowingAgent() for _ in range(24)]
+    agents += [AntiTrendAgent() for _ in range(24)]
+    agents.append(CustomAgent())
+    agents.append(NewStrategyAgent())  # Añadir tu nuevo agente
+    return agents
