@@ -3,7 +3,7 @@ Este proyecto simula un mercado donde varios agentes interactúan comprando y ve
 
 ## Características
 
-- **Mercado dinámico**: El precio de las cartas fluctúa según las acciones de compra y venta de los agentes.
+- **Mercado dinámico**: El precio de las trjetas fluctúa según las acciones de compra y venta de los agentes.
 - **Diversidad de agentes**: Hay cuatro tipos de agentes que usan diferentes estrategias para actuar en el mercado:
   - `RandomAgent`: Actúa de manera aleatoria.
   - `TrendFollowingAgent`: Sigue tendencias, comprando cuando el precio sube y vendiendo en mercados bajistas.
